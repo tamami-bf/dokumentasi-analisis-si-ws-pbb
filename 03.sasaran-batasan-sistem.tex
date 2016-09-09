@@ -1,0 +1,15 @@
+\chapter{SASARAN DAN BATASAN SISTEM}
+
+Sebagai sebuah sistem yang dibangun untuk alasan atau tujuan tertentu, sistem aplikasi \textit{web services} ini pun dibangun dengan beberapa sasaran tertentu diantaranya yaitu :
+
+\begin{enumerate}[1.]
+  \item Menjaga konsistensi basis data SISMIOP agar data yang tersimpan dan diproduksi dari basis data ini valid tanpa perlu dilakukan pengolahan terlebih dahulu.
+  
+  \item Data realisasi pembayaran PBB-P2 dapat disajikan secara \textit{realtime} tanpa jeda hari, jam, bahkan menit.
+  
+  \item Perubahan-perubahan data akibat pengajuan pelayanan dapat langsung dibayarkan detik itu juga setelah wajib pajak atau kuasanya melakukan pengambilan berkas selesai di DPPK, data tagihan terbaru langsung dapat diakses oleh Bank sebagai tempat pembayaran.
+\end{enumerate}
+
+Dari sasaran yang akan dicapai tersebut, karena kondisi cakupan \textit{web services} yang terdiri dari banyak protokol dan spesifikasi, boleh dikatakan luas cakupannya, maka sistem yang dibangun untuk pencatatan pembayaran PBB-P2 ini sebetulnya lebih ke \textit{Web API}, dimana \textit{Web API} ini adalah jenis \textit{web services} yang penekanannya telah berubah menjadi komunikasi dengan basis bentuk yang lebih sederhana dari \textit{representational state transfer} (REST). \textit{RESTful API} tidak memerlukan protokol \textit{web services} berbasis XML (seperti SOAP dan WSDL) untuk mendukung \textit{interface}-nya.
+
+Karena berbentuk \textit{web services} untuk melayani pencatatan pembayaran PBB-P2 oleh Bank sebagai tempat pembayaran, maka yang dibangun hanya berupa \textit{server} yang melayani \textit{web services}, adapun pembuatan aplikasi \textit{client} nantinya hanya diperuntukan sebagai media untuk melakukan pengetesan saja.
