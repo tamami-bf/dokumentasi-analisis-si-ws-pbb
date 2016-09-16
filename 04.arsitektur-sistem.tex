@@ -127,7 +127,46 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
   
   Kelas yang akan menjadi titik awal datangnya sebuah \textit{request} dari \textit{client} adalah kelas SpptRestController, kelas ini yang nantinya akan memilih apakah \textit{request client} adalah \textit{inquiry}, transaksi pembayaran, atau permohonan \textit{reversal}. Kelas SpptRestController ini pula yang nantinya mengirimkan pada \textit{service} yang berkaitan.
   
+  Berkaitan dengan bagian \textit{inquiry}, maka begitu ada \textit{request inquiry} dikirimkan oleh \textit{client} dan diterima \textit{server} maka kemudian dipanggil \textit{interface} SpptServices, yang pada struktur kali ini diimplementasikan oleh kelas SpptServicesImpl.
   
+  Karena \textit{framework} yang digunakan adalah Spring, maka diperlukan beberapa bagian berdasarkan fungsi utamanya. Fungsi dari masing-masing kelas yang berada pada \textit{framework} Spring yaitu :
+  
+  \begin{itemize}
+    \item \textit{Domain Object}. Kelas-kelas yang memiliki fungsi ini mewakili struktur data persis seperti pada basis data. Penggunaan kelas-kelas pada \textit{domain object} diperlukan karena :
+    
+    \begin{enumerate}[1)]
+      \item Kode program jadi lebih mudah dimengerti dan dipelihara.
+      \item Karena Java merupakan bahasa yang \textit{strongly-typed} dan harus di-\textit{compile} terlebih dahulu, akan memudahkan pemeriksaan \textit{bug} pada saat \textit{compile} dibandingkan saat \textit{runtime} atau berjalannya aplikasi.
+      \item Memisahkan lapisan data dan antarmuka / \textit{interface}. Apabila ada perubahan skema pada basis data tetapi fitur pada tampilan antarmuka tidak berubah, maka cukup dilakukan perubahan pada lapisan data / \textit{domain object}-nya saja.
+      \item Pustaka siap pakai untuk validasi. Di Java, ada pustaka yang berguna untuk melakukan validasi, yaitu JSR-303. Terhadap validasi data yang akan dimasukkan ke dalam basis data, kita tidak perlu melakukan pengecekan seperti contoh kode berikut :
+      
+      \begin{lstlisting}[language=java]
+      if(mydata.getId() == null)
+      \end{lstlisting}
+      
+      Melainkan cukup dengan kode berikut :
+      
+      \begin{lstlisting}[language=java]
+      @NotNull private String Id;
+      \end{lstlisting}
+    \end{enumerate}
+    
+    \item \textit{Interface Business Services}
+    
+    Kelas-kelas pada fungsi ini hanya berupa definisi daftar fitur yang disediakan oleh aplikasi. Seluruh implementasi dikelas ini belum terisi, oleh karena itu dinamakan \textit{interface}. Beberapa alasan penggunaan \textit{interface} atau kelas-kelas abstrak atau tanpa implementasi ini adalah sebagai berikut :
+    
+    \begin{itemize}
+      \item Pada saat membangun sebuah aplikasi \textit{client-server}, maka cukup dengan memberikan kelas-kelas pada \textit{domain object} dan \textit{interface} ini pada \textit{programmer} yang membangun sisi \textit{client}, tanpa perlu menyertakan implementasi dari \textit{interface} yang biasanya cukup besar, aplikasi dapat saling berkomunikasi.
+      
+      \item Pada saat ada peralihan atau perubahan implementasi perangkat lunak basis data, maka aplikasi disisi \textit{client} tidak perlu berubah.
+      
+      \item Fitur \textit{declarative transaction} yang dimiliki Spring akan lebih optimal bekerja bila dipisahkan antara \textit{interface} dengan implementasinya.
+    \end{itemize}
+    
+    \item \textit{Implementasi Business Services}
+    
+    Ini adalah bagian dari implementasi \textit{interface business services}. Jika pada \textit{interface} berisi fitur abstrak, pada bagian ini sudah ada implementasi konkrit untuk masing-masing fitur yang telah didefinisikan pada \textit{interface}. Karena sistem aplikasi akan menggunakan Spring Data JPA, maka diperlukan kelas-kelas lain selain \textit{business services}, yaitu kelas-kelas implementasi \textit{Data Access Object} (DAO).
+  \end{itemize}
   
   \item Bagian Transaksi Pembayaran
   \item Bagian \textit{Reversal}
