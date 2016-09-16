@@ -168,7 +168,12 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
     Ini adalah bagian dari implementasi \textit{interface business services}. Jika pada \textit{interface} berisi fitur abstrak, pada bagian ini sudah ada implementasi konkrit untuk masing-masing fitur yang telah didefinisikan pada \textit{interface}. Karena sistem aplikasi akan menggunakan Spring Data JPA, maka diperlukan kelas-kelas lain selain \textit{business services}, yaitu kelas-kelas implementasi \textit{Data Access Object} (DAO).
   \end{itemize}
   
+  Implementasi dari kelas SpptServicesImpl akan mengembalikan kelas StatusInq sebagai respon terhadap \textit{request} yang telah sampai ke \textit{server}. Kelas SpptServicesImpl membutuhkan paket kelas DAO berupa \textit{interface} StoreProceduresDao untuk melakukan komunikasi dengan basis data. Implementasi dari \textit{interface} StoreProceduresDao ini adalah kelas StoreProceduresDaoImpl dimana implementasi didalamnya akan menggunakan kelas Sppt untuk menyimpan atau menampung nilai-nilai yang dihasilkan dari pemanggilan \textit{store procedure} pada basis data. Yang pada akhirnya akan dikembalikan kelas Sppt ini dalam bentuk yang terbungkus dalam kelas StatusInq.
+  
   \item Bagian Transaksi Pembayaran
+  
+  
+  
   \item Bagian \textit{Reversal}
 \end{enumerate}
 
