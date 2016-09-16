@@ -102,7 +102,33 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
 
 \begin{enumerate}
   \item Bagian Konfigurasi
+  
+  Bagian ini adalah kelas-kelas pembentuk konfigurasi \textit{framework} Spring sehingga aplikasi dapat dengan mudah dibangun tanpa perlu memikirkan detail teknis bagaimana Rest harus bekerja. Diagram \textit{class} dari bagian konfigurasi ini seperti ditunjukkan pada gambar \ref{fig:uml-class-konfig} :
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-class-konfig}
+    \caption{Diagram \textit{Class} Bagian Konfigurasi \textit{Framework} Spring}
+    \label{fig:uml-class-konfig}
+  \end{figure}
+  
+  Kelas-kelas inilah yang nantinya mengatur \textit{services} dan konfigurasi koneksi dengan basis data. Awalnya \textit{servlet container} akan memanggil kelas AppInitializer hasil turunan dari kelas atau \textit{interface} AbstractAnnotationConfigDispatcherServletInitializer. Kelas AppInitializer ini membutuhkan kelas AppConfig untuk melakukan Konfigurasi khusus terkait struktur \textit{framework} Spring yang digunakan. Kelas AppConfig ini pun melakukan pemanggilan kelas HibernateConfiguration untuk melakukan konfigurasi komunikasi dengan \textit{server} basis data.
+ 
   \item Bagian \textit{Inquiry}
+  
+  Kelas-kelas pada bagian \textit{inquiry} ini, beberapa akan muncul pada bagian transaksi pembayaran ataupun \textit{reversal} karena kelas-kelas tersebut memiliki fungsi yang sama dalam siklus melayani \textit{request} dari \textit{client}. Kelas-kelas pada bagian \textit{inquiry} ini akan terlihat seperti pada gambar \ref{fig:uml-class-inquiry}
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-class-inquiry}
+    \caption{Diagram \textit{Class} Bagian \textit{Inquiry}}
+    \label{fig:uml-class-inquiry}
+  \end{figure}
+  
+  Kelas yang akan menjadi titik awal datangnya sebuah \textit{request} dari \textit{client} adalah kelas SpptRestController, kelas ini yang nantinya akan memilih apakah \textit{request client} adalah \textit{inquiry}, transaksi pembayaran, atau permohonan \textit{reversal}. Kelas SpptRestController ini pula yang nantinya mengirimkan pada \textit{service} yang berkaitan.
+  
+  
+  
   \item Bagian Transaksi Pembayaran
   \item Bagian \textit{Reversal}
 \end{enumerate}
