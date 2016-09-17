@@ -225,7 +225,26 @@ Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas 
   Selain melakukan inisialisasi terhadap kelas SpptRestController, kelas AppConfig pun melakukan inisialisasi terhadap kelas HibernateConfiguration. Kelas HibernateConfiguration ini mempersiapkan koneksi dengan basis data dengan menyediakan modul-modul yang dapat digunakan pada sistem aplikasi nantinya.
   
   \item Bagian \textit{Inquiry}
+  
+  Untuk alur proses \textit{inquiry}, diagram \textit{sequence}-nya dapat dilihat seperti pada gambar \ref{fig:uml-seq-inq} :
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-inquiry}
+    \caption{Diagram \textit{Sequence} Untuk Menangani \textit{Request Inquiry}}
+    \label{fig:uml-seq-inq}
+  \end{figure}
+  
+  Seperti awal dari setiap proses \textit{request} Rest, pada fungsi \textit{inquiry} ini pun berawal dari kelas SpptRestController. Kelas SpptRestController ini kemudian menyalurkannya ke kelas SpptServicesImpl dengan memanggil \textit{method} getSpptByNopThn. Di dalam \textit{method} getSpptByNopThn, kelas SpptServicesImpl memanggil \textit{method} getDataSppt milik kelas StoreProceduresDaoImpl.
+  
+  Pada kelas StoreProceduresDaoImpl, \textit{method} getDataSppt melakukan koneksi ke basis data dan menampung hasilnya pada kelas Sppt. Hasil-hasil yang diperoleh dari basis data berupa NOP, Tahun Pajak, Nama Wajib Pajak, Alamat Objek Pajak, Besarnya tagihan pokok, dan besarnya Denda Administrasi. Semuanya ditampung yang ditandai dengan pemanggilan \textit{method} setNop, setThn, setNama, setAlamatOp, setPokok, dan setDenda.
+  
+  Sebelum dikirimkan kembali ke \textit{client}, maka data atau informasi yang ditampung dalam kelas Sppt dipaketkan dengan kelas StatusInq, yang hasilnya dikembalikan ke \textit{client} dalam bentuk kelas StatusInq.
+  
   \item Bagian Transaksi Pembayaran
+  
+  
+  
   \item Bagian \textit{Reversal}
 \end{enumerate}
 
