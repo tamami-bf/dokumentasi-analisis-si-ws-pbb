@@ -172,11 +172,61 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
   
   \item Bagian Transaksi Pembayaran
   
+  Kelas-kelas pembentuk bagian transaksi pembayaran ini adalah kelas-kelas yang saling berhubungan agar \textit{request} transaksi pembayaran dapat diproses sempurna oleh \textit{server}. Kelas-kelas pembentuk bagian transaksi pembayaran ini adalah seperti terlihat pada gambar \ref{fig:uml-class-bayar} :
   
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-class-bayar}
+    \caption{Diagram \textit{Class} Untuk Bagian Pembayaran}
+    \label{fig:uml-class-bayar}
+  \end{figure}
+  
+  Seperti bagian sebelumnya, kelas SpptRestController yang sama muncul di bagian ini karena dari kelas inilah titik awal sebuah \textit{request} dari \textit{client} dimulai.
+  
+  Yang berbeda dari bagian ini adalah kelas-kelas PembayaranServices dan PembayaranServicesImpl sebagai \textit{interface} dan kelas implementasinya yang dibutuhkan oleh \textit{framework} Spring, kemudian ada kelas StatusTrx sebagai pembungkus respon yang nantinya dikirimkan ke \textit{client}, serta kelas PembayaranSppt untuk menampung informasi yang datang dari basis data hasil dari pemanggilan DAO dari kelas StoreProceduresDaoImpl yang sama seperti pada bagian \textit{inquiry}. pada bagian transaksi pembayaran ini pun, kelas PembayaranSppt sebagai bahan respon atas \textit{request} dari \textit{client} akan dibungkus dengan kelas \textit{StatusTrx} agar informasi yang sampai ke \textit{client} dapat lebih jelas.
   
   \item Bagian \textit{Reversal}
+  
+  Kelas-kelas pembentuk bagian \textit{reversal} ini berfungsi untuk melakukan \textit{reversal} transaksi yang sebelumnya telah terjadi. Kelas-kelas pada bagian ini seperti terlihat pada gambar \ref{fig:uml-class-rev} :
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-class-rev}
+    \caption{Diagram \textit{Class} Yang Berhubungan Dengan Proses \textit{Reversal}}
+    \label{fig:uml-class-rev}
+  \end{figure}
+  
+  Seperti pada bagian-bagian sebelumnya, kelas SpptRestController tetap ada sebagai titik awal masuknya sebuah \textit{request} yang akan diproses. Kemudian karena \textit{request} yang diterima berupa proses \textit{reversal} maka akan berhubungan dengan \textit{interface} ReversalServices dan kelas ReversalServicesImpl untuk mengikuti aturan dari \textit{framework} Spring.
+  
+  Sebagai penghubung komunikasi antara aplikasi dengan basis data, tetap menggunakan \textit{interface} StoreProceduresDao dengan kelas StoreProceduresDaoImpl sebagai implementasinya. Sebagai bahan respon, data-data hasil pengambilan dari basis data akan ditampung pada kelas ReversalPembayaran dengan dibungkus kelas StatusRev untuk mempermudah menambahkan informasi-informasi sukses atau gagalnya operasi yang terjadi pada \textit{server}.
+  
 \end{enumerate}
 
 \section{Diagram \textit{Sequence}}
+
+Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas alurnya, maka perlu dipecah menjadi beberapa bagian. Agar lebih mudah memahami prosesnya, diagram akan dipecah sama seperti pada diagram \textit{class} yaitu dibagi berdasarkan fungsinya sebagai berikut :
+
+\begin{enumerate}
+  \item Bagian Konfigurasi
+  
+  Bagian ini akan menjelaskan bagaimana alur dari awal \textit{server} melakukan inisialisasi sistem, sampai kepada tahap \textit{server} siap menerima \textit{request}. Diagram \textit{sequence} untuk keadaan ini dapat dilihat seperti pada gambar \ref{fig:uml-seq-konf} :
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-konf}
+    \caption{Diagram \textit{Sequence} Untuk Konfigurasi dan Inisialisasi}
+    \label{fig:uml-seq-konf}
+  \end{figure}
+  
+  Pada awalnya \textit{servlet container} akan melakukan inisialisasi kelas AppInitializer yang merupakan turunan dari kelas AbstractAnnotationConfigDispatcherServletInitializer, objek AbstractAnnotationConfigDispatcherServletInitializer ini merupakan \textit{interface} yang disediakan \textit{framework} Spring untuk tempat memulai melakukan inisialisasi.
+  
+  Lalu kelas AppInitializer melakukan inisialisasi terhadap kelas AppConfig untuk melakukan konfigurasi-konfigurasi yang diperlukan agar sistem aplikasi dapat bekerja dengan baik. Salah satu diantaranya adalah melakukan inisialisasi terhadap kelas SpptRestController, kelas inilah yang nantinya melakukan seleksi \textit{request} dan mengirimkan pada kelas \textit{service} yang berkaitan.
+  
+  Selain melakukan inisialisasi terhadap kelas SpptRestController, kelas AppConfig pun melakukan inisialisasi terhadap kelas HibernateConfiguration. Kelas HibernateConfiguration ini mempersiapkan koneksi dengan basis data dengan menyediakan modul-modul yang dapat digunakan pada sistem aplikasi nantinya.
+  
+  \item Bagian \textit{Inquiry}
+  \item Bagian Transaksi Pembayaran
+  \item Bagian \textit{Reversal}
+\end{enumerate}
 
 \section{Diagram \textit{Statechart}}
