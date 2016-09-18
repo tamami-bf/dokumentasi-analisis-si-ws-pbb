@@ -243,9 +243,43 @@ Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas 
   
   \item Bagian Transaksi Pembayaran
   
+  Pada bagian-bagian yang menangani transaksi pembayaran, objek-objek yang berhubungan akan terlihat berkomunikasi pada diagram \textit{sequence} seperti pada gambar \ref{fig:uml-seq-trx} :
   
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx}
+    \caption{Diagram \textit{Sequence} Untuk Proses Pencatatan Transaksi Pembayaran}
+    \label{fig:uml-seq-trx}
+  \end{figure}
+  
+  Seperti proses pada \textit{request inquiry}, pada proses pencatatan pembayaran, \textit{request} akan diterima dan disaring pada kelas SpptRestController. Karena \textit{request}-nya adalah melakukan pencatatan pembayaran, maka yang dipanggil adalah \textit{method} prosesPembayaran milik kelas SpptRestController.
+  
+  Dari \textit{method} prosesPembayaran milik kelas SpptRestController, didalamnya memanggil \textit{method} dengan nama yang sama, yaitu \textit{method} prosesPembayaran tetapi milik kelas PembayaranServicesImpl. 
+  
+  Dari \textit{method} prosesPembayaran milik kelas PembayaranServicesImpl pada lapisan \textit{services}, kemudian memanggil \textit{method} dengan nama yang sama pula, yaitu \textit{method} prosesPembayaran, tetapi kali ini milik kelas StoreProceduresDaoImpl sebagai lapisan penghubung antara aplikasi dengan basis data.
+  
+  Pada \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl ini, proses didalamnya adalah memanggil \textit{store procedure} milik basis data Oracle, yang kemudian, hasil pencatatan akan ditampung dalam kelas PembayaranSppt.
+  
+  \textit{Method} prosesPembayaran milik kelas StoreProceduresDaoImpl akhirnya akan membungkus kelas PembayaranSppt yang sudah menampung beberapa parameter pencatatan pembayaran di dalam kelas StatusTrx, dan mengembalikan kelas StatusTrx ke kelas SpptRestController untuk dijadikan respon terhadap \textit{request} yang telah diterima dari \textit{client}.
   
   \item Bagian \textit{Reversal}
+  
+  Pada fungsi \textit{reversal}, diagram \textit{sequence} yang terlihat akan mirip dengan diagram pada fungsi transaksi pembayaran atau \textit{request inquiry}, seperti terlihat pada gambar \ref{fig:uml-seq-rev} :
+  
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-rev}
+    \caption{Diagram \textit{Sequence} Untuk Fungsi \textit{Reversal}}
+    \label{fig:uml-seq-rev}
+  \end{figure}
+  
+  Seperti beberapa \textit{request} sebelumnya, \textit{request reversal} pun akan dimulai dari kelas SpptRestController pada \textit{method} prosesReversal.
+  
+  Pada \textit{method} prosesReversal kelas SpptRestController akan memanggil \textit{method} yang sama namanya, yaitu \textit{method} prosesReversal tetapi milik kelas ReversalServicesImpl.
+  
+  Dari \textit{method} prosesReversal milik kelas ReversalServicesImpl ini, kemudian akan memanggil \textit{method} reversalPembayaran pada kelas StoreProceduresImpl yang didalamnya memuat koneksi ke basis data kemudian memanggil \textit{store procedure} yang ada pada basis data dan menampung hasilnya pada kelas ReversalPembayaran.
+  
+  Pada langkah terakhir, \textit{method} reversalPembayaran kelas StoreProceduresImpl ini akan membungkus kelas ReversalPembayaran di dalam kelas StatusRev yang dikembalikan ke kelas SpptRestController agar dijadikan bahan respon terhadap \textit{request} yang dilakukan oleh \textit{client}.
 \end{enumerate}
 
 \section{Diagram \textit{Statechart}}
