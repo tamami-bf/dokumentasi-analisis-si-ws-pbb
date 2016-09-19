@@ -204,7 +204,39 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
 
 \section{Diagram \textit{Sequence}}
 
-Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas alurnya, maka perlu dipecah menjadi beberapa bagian. Agar lebih mudah memahami prosesnya, diagram akan dipecah sama seperti pada diagram \textit{class} yaitu dibagi berdasarkan fungsinya sebagai berikut :
+Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas alurnya, maka perlu dipecah menjadi beberapa bagian. Agar lebih mudah memahami prosesnya, diagram akan dipecah seperti pada diagram \textit{class} yaitu hanya saja untuk diagram \textit{sequence} ini akan berbentuk skenario-skenario sebagai berikut :
+
+\begin{enumerate}
+  \item Skenario \textit{Inquiry} Gagal Karena Tahun Pajak Mengandung Karakter Bukan Angka
+  
+  Pada skenario ini, \textit{client} mengirimkan \textit{request} tetapi ada kesalahan bahwa tahun pajak yang di-\textit{request} oleh \textit{client} mengandung karakter bukan angka. Diagram \textit{statechart} dari skenario 
+  
+  \item Skenario \textit{Inquiry} Gagal Karena Data Tidak Ditemukan
+  \item Skenario \textit{Inquiry} Gagal Karena Kesalahan Server
+  \item Skenario \textit{Inquiry} Sukses
+  \item Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan.
+  \item Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil
+  \item Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan
+  \item Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server
+  \item Skenario Transaksi Pembayaran Sukses
+  \item Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada
+  \item Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda
+  \item Skenario \textit{Reversal} Gagal Karena Kesalahan Server
+  \item Skenario \textit{Reversal} Sukses
+\end{enumerate}
+
+\subsection{Skenario \textit{Inquiry} Gagal Karena Data Tidak Ditemukan}
+\subsection{Skenario \textit{Inquiry} Gagal Karena Kesalahan Server}
+\subsection{Skenario \textit{Inquiry} Sukses}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
+\subsection{Skenario Transaksi Pembayaran Sukses}
+\subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
+\subsection{Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda}
+\subsection{Skenario \textit{Reversal} Gagal Karena Kesalahan Server}
+\subsection{Skenario \textit{Reversal} Sukses}
 
 \begin{enumerate}
   \item Bagian Konfigurasi
@@ -281,5 +313,3 @@ Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas 
   
   Pada langkah terakhir, \textit{method} reversalPembayaran kelas StoreProceduresImpl ini akan membungkus kelas ReversalPembayaran di dalam kelas StatusRev yang dikembalikan ke kelas SpptRestController agar dijadikan bahan respon terhadap \textit{request} yang dilakukan oleh \textit{client}.
 \end{enumerate}
-
-\section{Diagram \textit{Statechart}}
