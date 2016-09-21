@@ -206,42 +206,9 @@ Pada diagram \textit{class} ini, akan membahas detail dari tiap kelas pembentuk 
 
 Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas alurnya, maka perlu dipecah menjadi beberapa bagian. Agar lebih mudah memahami prosesnya, diagram akan dipecah seperti pada diagram \textit{class} yaitu hanya saja untuk diagram \textit{sequence} ini akan berbentuk skenario-skenario sebagai berikut :
 
-\begin{enumerate}
-  \item Skenario \textit{Inquiry} Gagal Karena Tahun Pajak Mengandung Karakter Bukan Angka
-  
-  Pada skenario ini, \textit{client} mengirimkan \textit{request} tetapi ada kesalahan bahwa tahun pajak yang di-\textit{request} oleh \textit{client} mengandung karakter bukan angka. Diagram \textit{statechart} dari skenario 
-  
-  \item Skenario \textit{Inquiry} Gagal Karena Data Tidak Ditemukan
-  \item Skenario \textit{Inquiry} Gagal Karena Kesalahan Server
-  \item Skenario \textit{Inquiry} Sukses
-  \item Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan.
-  \item Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil
-  \item Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan
-  \item Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server
-  \item Skenario Transaksi Pembayaran Sukses
-  \item Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada
-  \item Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda
-  \item Skenario \textit{Reversal} Gagal Karena Kesalahan Server
-  \item Skenario \textit{Reversal} Sukses
-\end{enumerate}
+\subsection{Skenario Konfigurasi \textit{Spring Framework}}
 
-\subsection{Skenario \textit{Inquiry} Gagal Karena Data Tidak Ditemukan}
-\subsection{Skenario \textit{Inquiry} Gagal Karena Kesalahan Server}
-\subsection{Skenario \textit{Inquiry} Sukses}
-\subsection{Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan}
-\subsection{Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil}
-\subsection{Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan}
-\subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
-\subsection{Skenario Transaksi Pembayaran Sukses}
-\subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
-\subsection{Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda}
-\subsection{Skenario \textit{Reversal} Gagal Karena Kesalahan Server}
-\subsection{Skenario \textit{Reversal} Sukses}
-
-\begin{enumerate}
-  \item Bagian Konfigurasi
-  
-  Bagian ini akan menjelaskan bagaimana alur dari awal \textit{server} melakukan inisialisasi sistem, sampai kepada tahap \textit{server} siap menerima \textit{request}. Diagram \textit{sequence} untuk keadaan ini dapat dilihat seperti pada gambar \ref{fig:uml-seq-konf} :
+Bagian ini akan menjelaskan bagaimana alur dari awal \textit{server} melakukan inisialisasi sistem, sampai kepada tahap \textit{server} siap menerima \textit{request}. Diagram \textit{sequence} untuk keadaan ini dapat dilihat seperti pada gambar \ref{fig:uml-seq-konf} :
   
   \begin{figure}[H]
     \centering
@@ -256,9 +223,54 @@ Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas 
   
   Selain melakukan inisialisasi terhadap kelas SpptRestController, kelas AppConfig pun melakukan inisialisasi terhadap kelas HibernateConfiguration. Kelas HibernateConfiguration ini mempersiapkan koneksi dengan basis data dengan menyediakan modul-modul yang dapat digunakan pada sistem aplikasi nantinya.
   
-  \item Bagian \textit{Inquiry}
-  
-  Untuk alur proses \textit{inquiry}, diagram \textit{sequence}-nya dapat dilihat seperti pada gambar \ref{fig:uml-seq-inq} :
+\subsection{Skenario \textit{Inquiry} Gagal Karena Tahun Pajak Bukan Angka}
+
+Skenario ini akan menggambarkan kondisi dimana \textit{client} mengirimkan \textit{request inquiry}, namun setelah diseleksi oleh \textit{server} terdapat karakter bukan angka pada tahun pajak yang di-\textit{request}. Diagram \textit{sequence} dari skenario ini dapat dilihat pada gambar \ref{fig:uml-seq-inq-thn-not-valid} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./resources/uml/uml-seq-inq-thn-not-valid}
+  \caption{Diagram \textit{Sequence} Kegagalan \textit{Inquiry} Karena Tahun Pajak Mengandung Karakter Bukan Angka}
+  \label{fig:uml-seq-inq-thn-not-valid}
+\end{figure}
+
+Objek yang saling berhubungan memang hanya 2 (dua) saja untuk sekenario ini, karena seleksi terhadap karakter pada parameter tahun pajak diperiksa 
+
+\subsection{Skenario \textit{Inquiry} Gagal Karena Data Tidak Ditemukan}
+
+Pada skenario ini, \textit{client} mengirimkan \textit{request} tetapi ada kesalahan bahwa tahun pajak yang di-\textit{request} oleh \textit{client} mengandung karakter bukan angka. Diagram \textit{sequence} dari skenario ini seperti terlihat pada gambar \ref{fig:uml-seq-inq-not-any} :
+
+\begin{figure}[H] 
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-inq-not-any}
+  \caption{Diagram \textit{Sequence} Kegagal \textit{Inquiry} Karena Data Tidak Ada Dalam Basis Data}
+  \label{fig:uml-seq-inq-not-any}
+\end{figure}
+
+Pada diagram \textit{sequence} tersebut, permintaan atau \textit{request} dari \textit{client} akan diterima \textit{server} dan diteruskan oleh \textit{framework} Spring ke \textit{method} getDataSppt milik kelas SpptRestController.
+
+Kemudian \textit{method} getDataSppt akan memanggil \textit{method} getSpptByNopThn milik kelas SpptServicesImpl, yang didalamnya hanya memanggil \textit{method} getDataSppt milik kelas StoreProceduresDaoImpl.
+
+Didalam \textit{method} getDataSppt milik kelas StoreProceduresDaoImpl, terdapat proses koneksi ke basis data melalui kelas CallableStatement, yang pertama melakukan pemanggilan \textit{method} executeUpdate milik untuk mengeksekusi atau memanggil \textit{store procedure} milik basis data, kemudian mengambil nilai balikkannya melalui \textit{method} getObject.
+
+Terakhir adalah melakukan pemeriksaan terhadap nilai balikan dari pembanggil \textit{store procedure} milik basis data, bila nilai kembalian nihil, maka \textit{method} getDataSppt akan membuat instan dari kelas StatusInq, kemudian nilainya dikembalikan ke kelas SpptRestController yang tentu saja dikirimkan hasilnya ke \textit{client}.
+
+\subsection{Skenario \textit{Inquiry} Gagal Karena Kesalahan Server}
+
+Pada skenario ini, \textit{client} melakukan \textit{request inquiry} ke \textit{server}, namun karena beberapa hal, komunikasi antara \textit{server} basis data dan \textit{server} aplikasi mengalami gangguan, sehingga proses \textit{inquiry} gagal dan mengirimkan pesan ke \textit{client} bahwa \textit{request} yang dikirimkan telah gagal diproses. Gambar Diagram \textit{sequence} dari skenario ini dapat dilihat seperti pada gambar \ref{fig:uml-seq-inq-db-error} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-inq-db-error}
+  \caption{Diagram \textit{Sequence} Untuk Proses \textit{Inquiry} Yang Gagal Karena Kesalahan Server}
+  \label{fig:uml-seq-inq-db-error}
+\end{figure}
+
+Diagramnya terlihat sama dengan skenario sebelumnya, yaitu \textit{inquiry} yang gagal karena datanya tidak ada, yang membedakan adalah pada saat \textit{method} getDataSppt milik kelas StoreProceduresDaoImpl melakukan pemanggilan \textit{store procedure} milik basis data melalui \textit{method} executeUpdate pada kelas CallableStatement ada kesalahan, sehingga \textit{method} getDataSppt milik kelas StoreProceduresDaoImpl membuat instan dari kelas StatusInq dan mengembalikannya ke kelas SpptRestController yang kemudian menjadi respon yang dikirim ke \textit{client} sebagai informasi bahwa \textit{request} yang dikirimkan ke \textit{server} gagal diproses.
+
+\subsection{Skenario \textit{Inquiry} Sukses}
+
+Untuk alur proses \textit{inquiry} yang sukses, diagram \textit{sequence}-nya dapat dilihat seperti pada gambar \ref{fig:uml-seq-inq} :
   
   \begin{figure}[H]
     \centering
@@ -272,6 +284,23 @@ Untuk penjelasan diagram \textit{sequence} ini pun, agar diagram terlihat jelas 
   Pada kelas StoreProceduresDaoImpl, \textit{method} getDataSppt melakukan koneksi ke basis data dan menampung hasilnya pada kelas Sppt. Hasil-hasil yang diperoleh dari basis data berupa NOP, Tahun Pajak, Nama Wajib Pajak, Alamat Objek Pajak, Besarnya tagihan pokok, dan besarnya Denda Administrasi. Semuanya ditampung yang ditandai dengan pemanggilan \textit{method} setNop, setThn, setNama, setAlamatOp, setPokok, dan setDenda.
   
   Sebelum dikirimkan kembali ke \textit{client}, maka data atau informasi yang ditampung dalam kelas Sppt dipaketkan dengan kelas StatusInq, yang hasilnya dikembalikan ke \textit{client} dalam bentuk kelas StatusInq.
+
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan}
+\subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
+\subsection{Skenario Transaksi Pembayaran Sukses}
+\subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
+\subsection{Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda}
+\subsection{Skenario \textit{Reversal} Gagal Karena Kesalahan Server}
+\subsection{Skenario \textit{Reversal} Sukses}
+
+\begin{enumerate}
+  
+  
+  \item Bagian \textit{Inquiry}
+  
+  
   
   \item Bagian Transaksi Pembayaran
   
