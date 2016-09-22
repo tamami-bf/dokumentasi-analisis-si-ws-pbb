@@ -286,7 +286,26 @@ Untuk alur proses \textit{inquiry} yang sukses, diagram \textit{sequence}-nya da
   Sebelum dikirimkan kembali ke \textit{client}, maka data atau informasi yang ditampung dalam kelas Sppt dipaketkan dengan kelas StatusInq, yang hasilnya dikembalikan ke \textit{client} dalam bentuk kelas StatusInq.
 
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan}
+
+Pada skenario ini, \textit{request} transaksi yang dikirimkan oleh \textit{client} gagal dilakukan karena waktu pada saat dilakukan pembayaran oleh wajib pajak ke tempat pembayaran, lebih dari waktu dilakukan pencatatan ke basis data. Kondisi ini tidak bisa diterima, karena seharusnya tanggal pencatatan transaksi ke basis data harus lebih terkini dibandingkan kondisi jam bahkan tanggal dilakukan pembayaran oleh wajib pajak.
+
+Diagram \textit{sequence} yang menggambarkan skenario ini seperti terlihat pada gambar \ref{fig:uml-seq-trx-tgl-bayar-error} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\textwidth]{./resources/uml/uml-seq-trx-tgl-bayar-error}
+  \caption{Diagram \textit{Sequence} Transaksi Pembayaran Yang Gagal Karena Jam Pembayaran Melebihi Jam Pencatatan}
+  \label{fig:uml-seq-trx-tgl-bayar-error}
+\end{figure}
+
+Skenario ini terlihat sederhana karena pemeriksaan tanggal pembayaran dilakukan pada \textit{method} prosesPembayaran milik kelas SpptRestController, \textit{method} inilah yang melakukan tugasnya pada saat ada \textit{request} transaksi pembayaran dari \textit{client}.
+
+Setelah ada kesalahan tanggal pembayaran, \textit{method} ini akan mengirimkan nilai dari kelas StatusTrx sebagai informasi bagi \textit{client} bahwa transaksi yang dikirimkan gagal dilakukan pencatatan pembayaran karena jam dan tanggal pembayaran lebih dari tanggal dan jam sekarang.
+
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil}
+
+
+
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan}
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
 \subsection{Skenario Transaksi Pembayaran Sukses}
@@ -296,11 +315,6 @@ Untuk alur proses \textit{inquiry} yang sukses, diagram \textit{sequence}-nya da
 \subsection{Skenario \textit{Reversal} Sukses}
 
 \begin{enumerate}
-  
-  
-  \item Bagian \textit{Inquiry}
-  
-  
   
   \item Bagian Transaksi Pembayaran
   
