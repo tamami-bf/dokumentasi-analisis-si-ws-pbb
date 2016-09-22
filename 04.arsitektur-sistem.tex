@@ -304,9 +304,38 @@ Setelah ada kesalahan tanggal pembayaran, \textit{method} ini akan mengirimkan n
 
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Tagihan Telah Terbayar Atau Nihil}
 
+Skenario ini akan menggambarkan pencatatan transaksi pembayaran yang gagal dilakukan karena tagihan telah terbayar atau tagihan nihil. Diagram \textit{sequence} dari skenario ini dapat dilihat pada gambar \ref{fig:uml-seq-trx-nihil} :
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx-nihil}
+  \caption{Diagram \textit{Sequence} Untuk Transaksi Pencatatan Pembayaran Yang Gagal Karena Tagihan Telah Terbayar Atau Nihil}
+  \label{fig:uml-seq-trx-nihil}
+\end{figure}
+
+Seperti setiap \textit{request} yang diterima dari \textit{client} oleh \textit{server}, bahwa \textit{request} akan diterima oleh kelas SpptRestController, dan untuk \textit{request} transaksi pembayaran akan ditangani oleh \textit{method} prosesPembayaran milik kelas SpptRestController.
+
+Dalam \textit{method} prosesPembayaran pada kelas SpptRestController akan memanggil \textit{method} prosesPembayaran milik PembayaranServicesImpl yang dalam \textit{method} ini pula memanggil \textit{method} dengan nama yang sama, yaitu prosesPembayaran, tetapi milik kelas StoreProceduresDaoImpl.
+
+Kelas StoreProceduresDaoImpl ini akan menghubungkan aplikasi dengan \textit{server} basis data, dengan melakukan pemanggilan pada \textit{method} executeUpdate milik kelas \textit{CallableStatement}, yang hasilnya dapat diambil dengan \textit{method} getObject.
+
+Bila hasil respon dari \textit{server} basis data berupa kode 01, maka artinya, data tersebut telah terbayar, atau status tagihan untuk nomor objek yang diminta nihil, sehingga dalam \textit{method} prosesPembayaran milik kelas storeProceduresDaoImpl ini akan membuat instan dari kelas StatusTrx dan mengirimkannya kembali ke kelas SpptRestController sehingga kelas SpptRestController akan memberikan respon berupa kelas StatusTrx ke \textit{client} sebagai informasi bahwa \textit{request} pencatatan pembayaran telah gagal karena objek pajak yang diminta telah terbayar, atau tidak ada tagihan sama sekali.
 
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Telah Dibatalkan}
+
+Skenario ini akan menggambarkan sebuah \textit{request} pencatatan transaksi pembayaran dari \textit{client} gagal karena objek pajak yang diminta status penagihannya telah dibatalkan. Diagram \textit{sequence} untuk skenario ini dapat dilihat pada gambar \ref{fig:uml-seq-trx-batal} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx-batal}
+  \caption{Diagram \textit{Sequence} Untuk Transaksi Pembayaran Yang Gagal Karena Penagihan Atas Objek Pajak Telah Dibatalkan}
+  \label{fig:uml-seq-trx-batal}
+\end{figure}
+
+Terlihat mirip dengan skenario sebelumnya, dan memang \textit{sequence} menggambarkan kondisi yang sama, yang membedakan adalah pada saat pemanggilan \textit{method} getObject dari kelas CallableStatement, \textit{server} basis data akan memberikan kode '04' yang artinya data penagihan untuk objek pajak yang diminta telah dibatalkan.
+
+Tentunya \textit{client} mengetahui hal tersebut, karena \textit{server} akan mengirimkan kelas StatusTrx yang berisi informasi tersebut melalui kelas SpptRestController.
+
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
 \subsection{Skenario Transaksi Pembayaran Sukses}
 \subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
