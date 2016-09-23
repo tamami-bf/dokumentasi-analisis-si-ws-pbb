@@ -334,9 +334,12 @@ Skenario ini akan menggambarkan sebuah \textit{request} pencatatan transaksi pem
 
 Terlihat mirip dengan skenario sebelumnya, dan memang \textit{sequence} menggambarkan kondisi yang sama, yang membedakan adalah pada saat pemanggilan \textit{method} getObject dari kelas CallableStatement, \textit{server} basis data akan memberikan kode '04' yang artinya data penagihan untuk objek pajak yang diminta telah dibatalkan.
 
-Tentunya \textit{client} mengetahui hal tersebut, karena \textit{server} akan mengirimkan kelas StatusTrx yang berisi informasi tersebut melalui kelas SpptRestController.
+Tentunya \textit{client} mengetahui hal tersebut, karena \textit{server} akan mengirimkan kelas StatusTrx yang berisi informasi kegagalan melalui kelas SpptRestController.
 
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
+
+Pada skenario ini, pesan transaksi yang diminta oleh \textit{client} sampai ke \textit{server}, namun pada saat \textit{server} akan melakukan komunikasi dengan basis data terjadi kegagalan. Skenario kegagalan ini dapat dilihat pada gambar :
+
 \subsection{Skenario Transaksi Pembayaran Sukses}
 \subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
 \subsection{Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda}
