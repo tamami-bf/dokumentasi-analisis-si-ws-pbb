@@ -338,9 +338,38 @@ Tentunya \textit{client} mengetahui hal tersebut, karena \textit{server} akan me
 
 \subsection{Skenario Transaksi Pembayaran Gagal Karena Kesalahan Server}
 
-Pada skenario ini, pesan transaksi yang diminta oleh \textit{client} sampai ke \textit{server}, namun pada saat \textit{server} akan melakukan komunikasi dengan basis data terjadi kegagalan. Skenario kegagalan ini dapat dilihat pada gambar :
+Pada skenario ini, pesan transaksi yang diminta oleh \textit{client} sampai ke \textit{server}, namun pada saat \textit{server} akan melakukan komunikasi dengan basis data terjadi kegagalan. Skenario kegagalan ini dapat dilihat pada gambar \ref{fig:uml-seq-trx-db-error} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx-db-error}
+  \caption{Diagram \textit{Sequence} Untuk Pencatatan Transaksi Pembayaran Yang Gagal Karena Kesalahan \textit{Server}}
+  \label{fig:uml-seq-trx-db-error}
+\end{figure}
+
+Transaksi ini diawal dari \textit{request client} yang masuk ke \textit{method} prosesPembayaran milik kelas SpptRestController. Kemudian secara berurutan memanggil \textit{method} prosesPembayaran milik kelas PembayaranServicesImpl dan \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl.
+
+Pada \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl, saat melakukan pemanggilan \textit{store procedures} dengan \textit{method} executeUpdate milik kelas CallableStatement, terjadi kesalahan komunikasi antara \textit{server} aplikasi dengan \textit{server} basis data, sehingga proses terlempar ke \textit{exception} dan dilakukan pembuatan instan kelas StatusTrx oleh kelas StoreProceduresDaoImpl, dan dikembalikan ke kelas SpptRestController dalam bentuk kelas StatusTrx dan disampaikan ke \textit{client}.
 
 \subsection{Skenario Transaksi Pembayaran Sukses}
+
+Skenario ini menggambarkan alur transaksi pencatatan pembayaran yang sukses dilakukan dan informasinya disampaikan ke \textit{client}. Diagram \textit{sequence} untuk menggambarkan skenario ini seperti terlihat pada gambar \ref{fig:uml-seq-trx} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx}
+  \caption{Diagram \textit{Sequence} Pencatatan Transaksi Pembayaran Yang Sukses}
+  \label{fig:uml-seq-trx}
+\end{figure}
+
+Skenario ini diawali dari pemanggilan \textit{method} prosesPembayaran milik kelas SpptRestController, karena \textit{method} ini lah yang menjadi tempat masuk seluruh proses dari fitur yang ditawarkan oleh \textit{server web services} ini.
+
+Secara berurut, \textit{method} prosesPembayaran milik kelas SpptRestController, akan memanggil \textit{method} prosesPembayaran milik kelas PembayaranServicesImpl, yang didalam \textit{method} ini akan memanggil \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl.
+
+Di dalam \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl, proses pemanggilan \textit{method} executeUpdate milik kelas CallableStatement dilakukan untuk mengeksekusi \textit{store procedures} pada basis data, kemudian mengambil hasil nilainya dengan memanggil \textit{method} getObject.
+
+Selanjutnya, dari nilai-nilai yang dikembalikan oleh \textit{store procedures} basis data, nilai-nilai tersebut ditampung pada kelas PembayaranSppt, yang kemudian dimasukkan ke dalam kelas StatusTrx untuk dikembalikan ke kelas SpptRestController. Kemudian kelas SpptRestController mengirimkan kelas StatusTrx sebagai respon dari \textit{request} yang dikirimkan oleh \textit{client}.
+
 \subsection{Skenario \textit{Reversal} Gagal Karena Data Yang Diminta Tidak Ada}
 \subsection{Skenario \textit{Reversal} Gagal Karena Ada Data Pembayaran Yang Tercatat Ganda}
 \subsection{Skenario \textit{Reversal} Gagal Karena Kesalahan Server}
@@ -348,26 +377,7 @@ Pada skenario ini, pesan transaksi yang diminta oleh \textit{client} sampai ke \
 
 \begin{enumerate}
   
-  \item Bagian Transaksi Pembayaran
-  
-  Pada bagian-bagian yang menangani transaksi pembayaran, objek-objek yang berhubungan akan terlihat berkomunikasi pada diagram \textit{sequence} seperti pada gambar \ref{fig:uml-seq-trx} :
-  
-  \begin{figure}[H]
-    \centering
-    \includegraphics[width=1\textwidth]{./resources/uml/uml-seq-trx}
-    \caption{Diagram \textit{Sequence} Untuk Proses Pencatatan Transaksi Pembayaran}
-    \label{fig:uml-seq-trx}
-  \end{figure}
-  
-  Seperti proses pada \textit{request inquiry}, pada proses pencatatan pembayaran, \textit{request} akan diterima dan disaring pada kelas SpptRestController. Karena \textit{request}-nya adalah melakukan pencatatan pembayaran, maka yang dipanggil adalah \textit{method} prosesPembayaran milik kelas SpptRestController.
-  
-  Dari \textit{method} prosesPembayaran milik kelas SpptRestController, didalamnya memanggil \textit{method} dengan nama yang sama, yaitu \textit{method} prosesPembayaran tetapi milik kelas PembayaranServicesImpl. 
-  
-  Dari \textit{method} prosesPembayaran milik kelas PembayaranServicesImpl pada lapisan \textit{services}, kemudian memanggil \textit{method} dengan nama yang sama pula, yaitu \textit{method} prosesPembayaran, tetapi kali ini milik kelas StoreProceduresDaoImpl sebagai lapisan penghubung antara aplikasi dengan basis data.
-  
-  Pada \textit{method} prosesPembayaran milik kelas StoreProceduresDaoImpl ini, proses didalamnya adalah memanggil \textit{store procedure} milik basis data Oracle, yang kemudian, hasil pencatatan akan ditampung dalam kelas PembayaranSppt.
-  
-  \textit{Method} prosesPembayaran milik kelas StoreProceduresDaoImpl akhirnya akan membungkus kelas PembayaranSppt yang sudah menampung beberapa parameter pencatatan pembayaran di dalam kelas StatusTrx, dan mengembalikan kelas StatusTrx ke kelas SpptRestController untuk dijadikan respon terhadap \textit{request} yang telah diterima dari \textit{client}.
+ 
   
   \item Bagian \textit{Reversal}
   
