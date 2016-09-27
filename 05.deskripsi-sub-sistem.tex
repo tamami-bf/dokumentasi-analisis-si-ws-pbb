@@ -45,6 +45,14 @@ Kelas ini bertugas melakukan konfigurasi komunikasi dengan sistem basis data. Di
   \label{fig:uml-class-HibernateConfiguration}
 \end{figure}
 
+Kelas ini terdiri dari 1 (satu) properti dan 4 (empat) \textit{method}. Propertinya diberi nama environment, karena properti ini akan bertugas menampung nilai-nilai konfigurasi standar yang berada pada \textit{file} yang terpisah.
+
+\textit{Method} yang pertama adalah \textit{method} sessionFactory. \textit{Method} sessionFactory ini akan bertugas mengembalikan nilai sebuah kelas LocalSessionFactoryBean dimana kelas ini yang menjadi sesi dari tiap \textit{user} untuk melakukan koneksi ke basis data nantinya. Untuk menyediakan akses data yang cepat dan optimal, \textit{method} ini akan menggunakan \textit{connection pool} milik BoneCP.
+
+\textit{Method} berikutnya adalah boneCPDataSource, \textit{method} ini akan menyediakan konfigurasi untuk melakukan koneksi ke basis data sebagai sumber data, yang dikembalikan dalam bentuk kelas BoneCPDataSource. \textit{Method} ini menjadi sumber untuk pengambilan data apapun pada basis data dengan menggunakan \textit{connection pool} BoneCP.
+
+\textit{Method} dataSource adalah \textit{method} standar yang menggunakan \textit{connection pool} yang dibawa oleh Hibernate yang digunakan untuk melakukan pemeriksaan awal koneksi ke basis data, apabila menggunakan \textit{method} ini berhasil, maka tidak akan menjadi masalah apabila dilakukan menggunakan \textit{connection pool} yang lain.
+
 \section{Kelas SpptRestController}
 
 \section{Kelas SpptServicesImpl}
