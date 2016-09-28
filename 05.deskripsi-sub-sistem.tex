@@ -57,6 +57,59 @@ Kelas ini terdiri dari 1 (satu) properti dan 4 (empat) \textit{method}. Properti
 
 \section{Kelas SpptRestController}
 
+Kelas ini yang menjadi gerbang pertama yang menentukan kemana sebuah \textit{request} akan di respon. Diagram kelas dari SpptRestController ini akan terlihat seperti pada gambar \ref{fig:uml-class-SpptRestController} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./resources/uml/uml-class-SpptRestController}
+  \caption{Diagram Kelas SpptRestController}
+  \label{fig:uml-class-SpptRestController}
+\end{figure}
+
+Kelas ini memiliki 4 (empat) properti dan 5 (lima) \textit{method}. Penjelasan dan fungsi masing-masing properti dan \textit{method} tersebut yaitu sebagai berikut :
+
+\begin{itemize}
+  \item Properti
+  
+  \begin{itemize}
+    \item Properti spptServices
+    
+    Properti ini yang akan mengatur layanan yang menangani permintaan / \textit{request inquiry} dari \textit{client}.
+    
+    \item Properti pembayaranServices
+    
+    Properti pembayaranServices ini akan mengatur layanan yang menangani permintaan / \textit{request} pencatatan pembayaran dari \textit{client}.
+    
+    \item Properti reversalServices
+    
+    Properti reversalServices ini akan mengatur layanan yang menangani permintaan / \textit{request reversal} dari \textit{client} karena ada kesalahan pencatatan pembayaran sebelumnya.
+    
+    \item Properti logger
+    
+    Properti logger digunakan untuk melakukan pencatatan aktifitas sistem aplikasi ke dalam sebuah \textit{file} pada saat sistem aplikasi berjalan dan digunakan. Kondisi ini diperlukan agar memudahkan diagnosa sistem apabila terjadi anomali-anomali proses yang tidak diinginkan.
+   
+  \end{itemize}
+  
+  \item \textit{Method}
+  
+  \begin{itemize}
+    \item \textit{Method} getLogger
+    
+    \textit{Method} getLogger ini menyediakan akses ke properti logger agar dapat mencatat kejadian saat \textit{runtime} dari kelas mana pun pada sistem aplikasi.
+    
+    \item \textit{Method} welcome
+    
+    \textit{Method} welcome ini adalah halaman muka dari layanan Rest, jadi setiap \textit{request} yang dilayangkan ke \textit{root slash} ("/"), maka akan direspon oleh \textit{method} welcome ini.
+    
+    \item \textit{Method} getDataSppt
+    
+    
+    
+    \item \textit{Method} prosesPembayaran
+    \item \textit{Method} prosesReversal
+  \end{itemize}
+\end{itemize}
+
 \section{Kelas SpptServicesImpl}
 
 \section{Kelas PembayaranServicesImpl}
