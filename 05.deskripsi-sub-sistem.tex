@@ -103,16 +103,48 @@ Kelas ini memiliki 4 (empat) properti dan 5 (lima) \textit{method}. Penjelasan d
     
     \item \textit{Method} getDataSppt
     
-    
+    \textit{Method} getDataSppt difungsikan sebagai tempat masuknya \textit{request inquiry} data tagihan SPPT PBB-P2, nantinya \textit{method} ini akan mengembalikan respon dalam bentuk kelas StatusInq yang telah diubah dalam format JSON.
     
     \item \textit{Method} prosesPembayaran
+    
+    \textit{Method} prosesPembayaran ini akan bertugas menangani \textit{request} pencatatan pembayaran dari \textit{client}. \textit{Method} ini akan mengembalikan kelas StatusTrx yang tentunya telah diubah dalam format JSON.
+    
     \item \textit{Method} prosesReversal
+    
+    \textit{Method} prosesReversal ini seperti \textit{method} getDataSppt dan \textit{method} prosesPembayaran yang menangani sebuah \textit{request} dari \textit{client}, namun \textit{method} prosesReversal ini akan menangani \textit{request reversal} dari pembayaran yang telah tercatat dalam basis data.
+    
+    Penyebab proses \textit{reversal} ini karena adanya kesalahan pencatatan pembayaran yang sebelumnya terjadi, misalkan pada saat \textit{client} melakukan \textit{request} pencatatan pembayaran, sebelum \textit{client} mendapatkan respon dari \textit{server} koneksi tiba-tiba terputus dan \textit{client} tidak pernah mendapatkan respon atas \textit{request}-nya, maka untuk memastikan adalah melakukan \textit{request reversal} dan melakukan \textit{request} pencatatan pembayaran kembali.
+    
   \end{itemize}
 \end{itemize}
 
 \section{Kelas SpptServicesImpl}
 
+Kelas SpptServicesImpl akan melayani \textit{request inquiry} dan melanjutkannya ke kelas-kelas yang menangani basis data. Diagram kelas dari SpptServicesImpl ini adalah seperti pada gambar \ref{fig:uml-class-SpptServicesImpl}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-class-SpptServicesImpl}
+  \caption{Diagram Kelas SpptServicesImpl}
+  \label{fig:uml-class-SpptServicesImpl}
+\end{figure}
+
+Kelas SpptServicesImpl ini memiliki 1 (satu) properti dan 1 (satu) \textit{method}. Propertinya bernama spDao, untuk menampung kelas StoreProceduresDao yang menangani semua hal mengenai eksekusi \textit{store procedure} pada basis data.
+
+\textit{Method} dari kelas ini bernama getSpptByNopThn yang berfungsi melakukan pemanggilan terhadap kelas yang bertugas menghubungi basis data yang pencarian datanya berdasarkan Nomor Objek Pajak (NOP) dan tahun pajak.
+
 \section{Kelas PembayaranServicesImpl}
+
+Kelas PembayaranServicesImpl bertugas melayani permintaan terhadap pencatatan pembayaran yang posisinya berada di tengah dan menjadi penghubung antara \textit{interface} dengan kelas-kelas \textit{data access}. Diagram kelas PembayaranServicesImpl ini seperti pada gambar \ref{fig:uml-class-PembayaranServicesImpl} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{./resources/uml/uml-class-PembayaranServicesImpl}
+  \caption{Diagram Kelas PembayaranServicesImpl}
+  \label{fig:uml-class-PembayaranServicesImpl}
+\end{figure}
+
+Kelas ini memiliki 1 (satu) properti 
 
 \section{Kelas ReversalServicesImpl}
 
