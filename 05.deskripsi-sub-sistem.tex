@@ -144,9 +144,13 @@ Kelas PembayaranServicesImpl bertugas melayani permintaan terhadap pencatatan pe
   \label{fig:uml-class-PembayaranServicesImpl}
 \end{figure}
 
-Kelas ini memiliki 1 (satu) properti 
+Kelas ini memiliki 1 (satu) properti dan 1 (satu) \textit{method}, properti yang dimiliki bernama spDao, ini adalah instan dari kelas atau \textit{interface} StoreProceduresDao yang bertugas melakukan komunikasi dengan sistem aplikasi basis data.
+
+Sedangkan \textit{method} prosesPembayaran adalah \textit{method} yang bertugas sebagai penghubung antara \textit{interface} dalam hal ini kelas SpptRestController, dengan kelas yang berhubungan dan berkomunikasi langsung dengan basis data untuk melakukan eksekusi pencatatan pembayaran.
 
 \section{Kelas ReversalServicesImpl}
+
+Seperti kelas PembayaranServicesImpl dan SpptServicesImpl, kelas ReversalServicesImpl bertugas menjadi penghubung antara \textit{interface} yang menangani 
 
 \section{Kelas StoreProceduresDaoImpl}
 
