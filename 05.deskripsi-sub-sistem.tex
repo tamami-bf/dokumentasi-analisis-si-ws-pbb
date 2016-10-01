@@ -150,9 +150,24 @@ Sedangkan \textit{method} prosesPembayaran adalah \textit{method} yang bertugas 
 
 \section{Kelas ReversalServicesImpl}
 
-Seperti kelas PembayaranServicesImpl dan SpptServicesImpl, kelas ReversalServicesImpl bertugas menjadi penghubung antara \textit{interface} yang menangani 
+Seperti kelas PembayaranServicesImpl dan SpptServicesImpl, kelas ReversalServicesImpl bertugas menjadi penghubung antara \textit{interface} yang menangani proses \textit{reversal} dengan kelas-kelas yang berhubungan dengan basis data. 
+
+Diagram kelas ReversalServicesImpl ini seperti terlihat pada gambar \ref{fig:uml-class-ReversalServicesImpl} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./resources/uml/uml-class-ReversalServicesImpl}
+  \caption{Diagram Kelas ReversalServicesImpl}
+  \label{fig:uml-class-ReversalServicesImpl}
+\end{figure}
+
+Seperti terlihat pada diagram bahwa kelas ReversalServicesImpl ini memiliki sebuah properti dan sebuah \textit{method}.
+
+Properti yang dimiliki kelas ReversalServicesImpl ini bernama spDao yang merupakan instan dari kelas StoreProceduresDao, dengan \textit{method} bernama prosesReversal, \textit{method} ini nantinya akan berkomunikasi dengan kelas StoreProceduresDao melalui instan kelas spDao yang menjadi penghubung dengan sistem aplikasi basis data.
 
 \section{Kelas StoreProceduresDaoImpl}
+
+Kelas StoreProceduresDaoImpl ini yang mengimplementasikan \textit{interface} StoreProceduresDao yang fungsinya melakukan komunikasi dengan sistem basis data. Diagram kelas StoreProceduresDaoImpl ini seperti terlihat pada gambar 
 
 \section{Kelas StatusInq}
 
