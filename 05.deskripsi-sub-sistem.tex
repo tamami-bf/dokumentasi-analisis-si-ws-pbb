@@ -167,16 +167,131 @@ Properti yang dimiliki kelas ReversalServicesImpl ini bernama spDao yang merupak
 
 \section{Kelas StoreProceduresDaoImpl}
 
-Kelas StoreProceduresDaoImpl ini yang mengimplementasikan \textit{interface} StoreProceduresDao yang fungsinya melakukan komunikasi dengan sistem basis data. Diagram kelas StoreProceduresDaoImpl ini seperti terlihat pada gambar 
+Kelas StoreProceduresDaoImpl ini yang mengimplementasikan \textit{interface} StoreProceduresDao yang fungsinya melakukan komunikasi dengan sistem basis data. Diagram kelas StoreProceduresDaoImpl ini seperti terlihat pada gambar \ref{fig:uml-class-StoreProceduresDaoImpl} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./resources/uml/uml-class-StoreProceduresDaoImpl}
+  \caption{Diagram Kelas StoreProceduresDaoImpl}
+  \label{fig:uml-class-StoreProceduresDaoImpl}
+\end{figure}
+
+Kelas ini memiliki beberapa properti dan 3 (tiga) buah \textit{method}. Properti yang pertama bernama sessionFactory, ini adalah instan dari kelas SessionFactory yang bertugas membuka sesi komunikasi dengan sistem basis data.
+
+Properti yang kedua adalah boneCPDs, yang merupakan instan dari kelas BoneCPDataSource. Properti ini akan melaksanakan tugasnya dengan \textit{framework} Hibernate menggunakan \textit{connection pool} dari BoneCP untuk hasil komunikasi yang lebih optimal.
+
+Properti yang ketiga adalah callable yang merupakan instan dari kelas CallableStatement, properti ini akan menyediakan perangkat komunikasi yang mampu melakukan eksekusi terhadap \textit{store procedure} yang berada pada basis data.
+
+Properti selanjutnya adalah sppt, pembayaranSppt, dan revPembayaran yang secara berurutan adalah instan dari kelas Sppt, PembayaranSppt, dan ReversalPembayaran. Ketiga properti ini memiliki fungsi yang sama, yaitu menampung nilai yang dikembalikan saat melakukan eksekusi \textit{store procedure} dari sistem basis data.
+
+Properti berikutnya yaitu status, statusTrx, dan statusRev, yang secara berurutan merupakan instan dari kelas StatusInq, StatusTrx, dan StatusRev. Fungsi dari ketiga properti ini yaitu sebagai pembungkus, atau penjelas informasi terhadap respon dari \textit{request} yang dikirimkan oleh \textit{client}.
+
+Untuk \textit{method} yang pertama adalah \textit{method} getDataSppt, yang fungsinya melakukan komunikasi dengan sistem basis data untuk memberikan respon terhadap \textit{request inquiry} dari \textit{client}.
+
+\textit{Method} yang kedua adalah \textit{method} prosesPembayaran, yang fungsinya melakukan komunikasi dengan sistem basis data untuk memberikan respon terhadap \textit{request} pencatatan pembayaran di \textit{client}.
+
+Sedangkan \textit{method} reversalPembayaran berfungsi melakukan komunikasi dengan sistem basis data untuk memberikan respon terhadap \textit{request reversal} pembayaran dari \textit{client}.
 
 \section{Kelas StatusInq}
 
+Kelas StatusInq ini digunakan untuk membungkus data respon sebuah \textit{inquiry} menjadi informasi yang lebih jelas karena ada penjelasan status respon yang diberikan. Misalkan, data \textit{inquiry} tidak muncul, maka kelas ini akan memberikan informasi lain apakah nomor objek pajak yang diminta ada atau tidak, atau kondisi nomor objek pajak tidak muncul karena telah terbayarkan.
+
+Diagram kelas StatusInq ini seperti terlihat pada gambar \ref{fig:uml-class-StatusInq} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./resources/uml/uml-class-StatusInq}
+  \caption{Diagram Kelas StatusInq}
+  \label{fig:uml-class-StatusInq}
+\end{figure}
+
+Kelas ini hanya memiliki 1 (satu) properti, 2 (dua) konstruktor, dan 2 (dua) \textit{method}.
+
+Properti pada kelas ini diberi nama sppt yang merupakan instan dari kelas Sppt. Seperti dijelaskan pada bagian sebelumnya, kelas Sppt ini digunakan untuk menampung nilai yang dikembalikan oleh sistem basis data pada saat pemanggilan \textit{store procedure inquiry}.
+
+Kontruktor disediakan 2 (dua), untuk menjadikan kelas ini fleksibel dalam implementasi instan. Sedangkan 2 (dua) \textit{method} yang disediakan sebetulnya untuk melakukan akses \textit{set} dan \textit{get} terhadap properti sppt.
+
 \section{Kelas StatusTrx}
+
+Kelas StatusTrx ini berfungsi membungkus informasi pencatatan transaksi pembayaran agar respon kepada \textit{client} lebih jelas. Diagram kelas dari kelas StatusTrx ini seperti terlihat pada gambar \ref{fig:uml-class-StatusTrx} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./resources/uml/uml-class-StatusTrx}
+  \caption{Diagram Kelas StatusTrx}
+  \label{fig:uml-class-StatusTrx}
+\end{figure}
+
+Seperti kelas StatusInq, kelas ini pun memiliki sebuah properti, 2 (dua) buah kontruktor, dan 2 (dua) buah \textit{method}.
+
+Properti pada kelas ini bernama byrSppt yang merupakan instan dari kelas PembayaranSppt, yang fungsinya adalah menampung hasil respon dari sistem basis data atas eksekusi \textit{store procedure} untuk pencatatan pembayaran.
+
+Fungsi dari 2 (dua) kontruktor yang ada pada kelas ini pun ditujukan agar pembentukan instan agar lebih fleksibel. Kedua \textit{method} pun dimaksudkan untuk memberikan akses pada properti dari kelas ini.
 
 \section{Kelas StatusRev}
 
+Kelas StatusRev ini berfungsi untuk membungkus informasi \textit{reversal} agar respon terhadap \textit{request client} lebih jelas. Diagram kelas StatusRev ini dapat dilihat pada gambar \ref{fig:uml-class-StatusRev} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./resources/uml/uml-class-StatusRev}
+  \caption{Diagram Kelas StatusRev}
+  \label{fig:uml-class-StatusRev}
+\end{figure}
+
+Seperti kelas StatusInq dan StatusTrx, kelas ini pun terdiri dari sebuah properti, 2 (dua) buah konstruktor, dan 2 (dua) buah \textit{method}. 
+
+Properti kelas ini bernama revPembayaran yang merupakan instan dari kelas ReversalPembayaran, yang fungsinya menampung hasil respon dari basis data terhadap eksekusi \textit{store procedure reversal} pembayaran.
+
+Kedua konstruktor yang disediakan untuk menjadikan pembuatan instan kelas ini lebih fleksibel, sedangkan dua \textit{method} yang disediakan merupakan fasilitas untuk melakukan akses terhadap properti kelas ini.
+
 \section{Kelas Sppt}
 
+Kelas Sppt ini adalah kelas yang menampung hasil respon dari pemanggilan atau eksekusi \textit{store procedure inquiry} yang ada pada basis data. Diagram kelas ini seperti terlihat pada gambar \ref{fig:uml-class-Sppt} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./resources/uml/uml-class-Sppt}
+  \caption{Diagram Kelas Sppt}
+  \label{fig:uml-class-Sppt}
+\end{figure}
+
+Kelas Sppt ini terdiri dari 6 (enam) properti dan 12 (dua belas) \textit{method}. Enam properti ini adalah nilai-nilai yang dikembalikan dari hasil eksekusi \textit{store procedure} pada basis data. Properti pada kelas ini terdiri dari :
+
+\begin{itemize}
+\item nop. Properti ini untuk menyimpan Nomor Objek Pajak, sebagai identitas kunci, tiap objek pajak akan memiliki NOP yang berbeda-beda.
+\item thn. Properti ini untuk menampung Tahun Pajak dimana objek pajak dimunculkan tagihan pajaknya.
+\item nama. Properti ini akan menampung nama dari wajib pajak untuk nomor objek pajak tersebut pada properti nop.
+\item alamatOp. Properti ini untuk menampung alamat dari objek pajak, yang nantinya bisa digunakan sebagai bahan verifikasi bahwa objek tersebut adalah benar yang akan dicari tahu informasinya.
+\item pokok. Properti ini untuk menampung besarnya tagihan pokok atas nomor objek pajak yang tersebut pada properti nop.
+\item denda. Properti ini akan menampung besarnya denda administrasi yang ditetapkan apabila ada keterlambatan pembayaran pajak yang telah melewati tanggal jatuh temponya.
+\end{itemize}
+
+Seluruh \textit{method} yang disediakan pada kelas ini hanya bertujuan untuk melakukan akses terhadap properti pada kelas ini.
+
 \section{Kelas PembayaranSppt}
+
+Kelas PembayaranSppt berfungsi untuk menampung informasi dari respon pencatatan pembayaran SPPT yang terjadi. Diagram kelas dari PembayaranSppt ini seperti terlihat pada gambar \ref{fig:uml-class-PembayaranSppt} :
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{./resources/uml/uml-class-PembayaranSppt}
+  \caption{Diagram Kelas PembayaranSppt}
+  \label{fig:uml-class-PembayaranSppt}
+\end{figure}
+
+Kelas ini memiliki 9 (sembilan) properti, 2 (dua) kontruktor, dan 18 (delapan belas) \textit{method}. Properti dari kelas ini terdiri dari :
+
+\begin{itemize}
+\item nop.
+\item thn.
+\item ntpd.
+\item mataAnggaranPokok.
+\item pokok.
+\item mataAnggaranSanksi.
+\item sanksi.
+\item namaWp.
+\item alamatOp.
+\end{itemize}
 
 \section{Kelas ReversalPembayaran}
