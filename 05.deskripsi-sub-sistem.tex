@@ -285,7 +285,7 @@ Kelas ini memiliki 9 (sembilan) properti, 2 (dua) kontruktor, dan 18 (delapan be
 \begin{itemize}
 \item nop. Properti nop ini digunakan untuk menampung Nomor Objek Pajak.
 \item thn. Properti thn ini digunakan untuk menampung Tahun Pajak dimana NOP dikenakan Pajak Bumi dan Bangunan.
-\item ntpd. Properti ntpd ini digunakan untuk menampung Nomor Transaksi Pajak Daerah, yang menjadi identitas bahwa pembayaran atas NOP dan Tahun pajak yang diinginkan telah tercatat dalam basis data SISMIOP.
+\item ntpd. Properti ntpd ini digunakan untuk menampung Nomor Transaksi Penerimaan Daerah, yang menjadi identitas bahwa pembayaran atas NOP dan Tahun pajak yang diinginkan telah tercatat dalam basis data SISMIOP.
 \item mataAnggaranPokok. Properti mataAnggaranPokok ini akan menyimpan kode mata anggaran untuk realisasi penerimaan pokok pajak untuk jenis Pajak Bumi dan Bangunan Perdesaan dan Perkotaan.
 \item pokok. Properti pokok ini akan menampung besarnya pokok pajak yang dibayarkan oleh wajib pajak.
 \item mataAnggaranSanksi. Properti mataAnggaranSanksi ini akan menampung kode mata anggaran untuk realisasi sanksi administrasi berupa denda dari keterlambatan pembayaran Pajak Bumi dan Bangunan Perdesaan dan Perkotaan.
@@ -310,3 +310,33 @@ Kelas ReversalPembayaran ini berfungsi menampung data-data transaksi \textit{rev
 \end{figure}
 
 Kelas ini memiliki 3 (tiga) buah properti, 2 (dua) konstruktor, dan 6 (enam) buah \textit{method}.
+
+Properti dari kelas ReversalPembayaran ini terdiri dari :
+
+\begin{itemize}
+  \item nop. Properti nop ini berfungsi untuk menampung Nomor Objek Pajak sebagai identitas objek pajak yang akan dilakukan \textit{reversal} pembayarannya.
+  \item thn. Properti thn ini berfungsi untuk menampung tahun pajak yang akan dilakukan \textit{reversal} pembayarannya.
+  \item ntpd. Properti ntpd ini berfungsi untuk menampung Nomor Transaksi Penerimaan Daerah yang akan dilakukan \textit{reversal} pembayarannya.
+\end{itemize}
+
+Dua konstruktor seperti pada kelas-kelas sebelumnya, ditujukan agar pembentukan instan dari kelas ReversalPembayaran ini menjadi lebih fleksibel. Begitu juga dengan 6 (enam) buah \textit{method} yang disediakan kelas ini, difungsikan untuk melakukan akses pada kelas ReversalPembayaran.
+
+Selain kelas-kelas pembentuk aplikasi, di tingkat sistem basis data dibentuk \textit{store procedure}. Daftar \textit{store procedure} yang berada pada basis data adalah sebagai berikut :
+
+\begin{itemize}
+  \item SPPT_TERHUTANG. 
+  
+    \textit{Store procedure} SPPT_TERHUTANG ini nantinya akan mengambil data dari tabel SPPT dan mengembalikan nilainya dalam kolom NOP (Nomor Objek Pajak), THN (Tahun Pajak), NAMA (Nama Wajib Pajak), ALAMAT_OP (Alamat Objek Pajak), POKOK (Besarnya PBB-P2 terhutang), dan DENDA (Besarnya denda administrasi bila ada).
+
+  \item PROSES_PEMBAYARAN. 
+  
+    \textit{Store procedure} PROSES_PEMBAYARAN ini nantinya akan mengambil data dari tabel SPPT, DAT_OP_BUMI, REF_KELURAHAN, dan REF_KECAMATAN. Keempat tabel tersebut sebagai bahan untuk diformulisikan agar dapat memenuhi pencatatan pada tabel PEMBAYARAN_SPPT yang merupakan tempat mencatatkan pembayaran PBB-P2 yang telah terjadi.
+  
+    Hasil dari pencatatan pada tabel PEMBAYARAN_SPPT kemudian dijadikan respon pencatatan ke aplikasi yang melakukan eksekusi \textit{store procedure} ini. Keseluruhan transaksi pencatatan tabel PEMBAYARAN_SPPT dan responnya ini kemudian dicatatkan kondisinya pada tabel LOG_TRX_PEMBAYARAN yang memuat NTPD (Nomor Transaksi Penerimaan Daerah).
+
+  \item REVERSAL_PEMBAYARAN.
+  
+    \textit{Store procedure} REVERSAL_PEMBAYARAN ini nantinya akan mengambil data dari tabel LOG_TRX_PEMBAYARAN, bila ada data pada tabel LOG_TRX_PEMBAYARAN, maka data NOP (Nomor Objek Pajak) untuk Tahun Pajak tersebut pada \textit{request} akan dihapus dari tabel PEMBAYARAN_SPPT, dan mengubah isi kolom STATUS_PEMBAYARAN_SPPT pada tabel SPPT menjadi 0 (karakter nol).
+    
+    Keseluruhan proses transaksi \textit{reversal} ini dicatat pada tabel LOG_REVERSAL.
+\end{itemize}
