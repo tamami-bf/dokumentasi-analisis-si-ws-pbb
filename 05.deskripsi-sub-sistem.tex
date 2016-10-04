@@ -324,19 +324,19 @@ Dua konstruktor seperti pada kelas-kelas sebelumnya, ditujukan agar pembentukan 
 Selain kelas-kelas pembentuk aplikasi, di tingkat sistem basis data dibentuk \textit{store procedure}. Daftar \textit{store procedure} yang berada pada basis data adalah sebagai berikut :
 
 \begin{itemize}
-  \item SPPT_TERHUTANG. 
+  \item SPPT\_TERHUTANG
   
-    \textit{Store procedure} SPPT_TERHUTANG ini nantinya akan mengambil data dari tabel SPPT dan mengembalikan nilainya dalam kolom NOP (Nomor Objek Pajak), THN (Tahun Pajak), NAMA (Nama Wajib Pajak), ALAMAT_OP (Alamat Objek Pajak), POKOK (Besarnya PBB-P2 terhutang), dan DENDA (Besarnya denda administrasi bila ada).
+    \textit{Store procedure} SPPT\_TERHUTANG ini nantinya akan mengambil data dari tabel SPPT dan mengembalikan nilainya dalam kolom NOP (Nomor Objek Pajak), THN (Tahun Pajak), NAMA (Nama Wajib Pajak), ALAMAT\_OP (Alamat Objek Pajak), POKOK (Besarnya PBB-P2 terhutang), dan DENDA (Besarnya denda administrasi bila ada).
 
-  \item PROSES_PEMBAYARAN. 
+  \item PROSES\_PEMBAYARAN. 
   
-    \textit{Store procedure} PROSES_PEMBAYARAN ini nantinya akan mengambil data dari tabel SPPT, DAT_OP_BUMI, REF_KELURAHAN, dan REF_KECAMATAN. Keempat tabel tersebut sebagai bahan untuk diformulisikan agar dapat memenuhi pencatatan pada tabel PEMBAYARAN_SPPT yang merupakan tempat mencatatkan pembayaran PBB-P2 yang telah terjadi.
+    \textit{Store procedure} PROSES\_PEMBAYARAN ini nantinya akan mengambil data dari tabel SPPT, DAT\_OP\_BUMI, REF\_KELURAHAN, dan REF\_KECAMATAN. Keempat tabel tersebut sebagai bahan untuk diformulisikan agar dapat memenuhi pencatatan pada tabel PEMBAYARAN\_SPPT yang merupakan tempat mencatatkan pembayaran PBB-P2 yang telah terjadi.
   
-    Hasil dari pencatatan pada tabel PEMBAYARAN_SPPT kemudian dijadikan respon pencatatan ke aplikasi yang melakukan eksekusi \textit{store procedure} ini. Keseluruhan transaksi pencatatan tabel PEMBAYARAN_SPPT dan responnya ini kemudian dicatatkan kondisinya pada tabel LOG_TRX_PEMBAYARAN yang memuat NTPD (Nomor Transaksi Penerimaan Daerah).
+    Hasil dari pencatatan pada tabel PEMBAYARAN\_SPPT kemudian dijadikan respon pencatatan ke aplikasi yang melakukan eksekusi \textit{store procedure} ini. Keseluruhan transaksi pencatatan tabel PEMBAYARAN\_SPPT dan responnya ini kemudian dicatatkan kondisinya pada tabel LOG\_TRX\_PEMBAYARAN yang memuat NTPD (Nomor Transaksi Penerimaan Daerah).
 
-  \item REVERSAL_PEMBAYARAN.
+  \item REVERSAL\_PEMBAYARAN.
   
-    \textit{Store procedure} REVERSAL_PEMBAYARAN ini nantinya akan mengambil data dari tabel LOG_TRX_PEMBAYARAN, bila ada data pada tabel LOG_TRX_PEMBAYARAN, maka data NOP (Nomor Objek Pajak) untuk Tahun Pajak tersebut pada \textit{request} akan dihapus dari tabel PEMBAYARAN_SPPT, dan mengubah isi kolom STATUS_PEMBAYARAN_SPPT pada tabel SPPT menjadi 0 (karakter nol).
+    \textit{Store procedure} REVERSAL\_PEMBAYARAN ini nantinya akan mengambil data dari tabel LOG\_TRX\_PEMBAYARAN, bila ada data pada tabel LOG\_TRX\_PEMBAYARAN, maka data NOP (Nomor Objek Pajak) untuk Tahun Pajak tersebut pada \textit{request} akan dihapus dari tabel PEMBAYARAN\_SPPT, dan mengubah isi kolom STATUS\_PEMBAYARAN\_SPPT pada tabel SPPT menjadi 0 (karakter nol).
     
-    Keseluruhan proses transaksi \textit{reversal} ini dicatat pada tabel LOG_REVERSAL.
+    Keseluruhan proses transaksi \textit{reversal} ini dicatat pada tabel LOG\_REVERSAL.
 \end{itemize}
