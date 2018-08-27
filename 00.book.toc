@@ -1,0 +1,13 @@
+\babel@toc {bahasa}{}
+\contentsline {chapter}{\numberline {1}CAKUPAN DAN TUJUAN PROGRAM}{1}
+\contentsline {chapter}{\numberline {2}STRUKTUR DATA / BASIS DATA}{3}
+\contentsline {section}{\numberline {2.1}Tabel SPPT}{3}
+\contentsline {section}{\numberline {2.2}Tabel DAT\_OBJEK\_PAJAK}{5}
+\contentsline {section}{\numberline {2.3}Tabel DAT\_SUBJEK\_PAJAK}{7}
+\contentsline {section}{\numberline {2.4}Tabel REF\_KECAMATAN}{8}
+\contentsline {section}{\numberline {2.5}Tabel REF\_KELURAHAN}{8}
+\contentsline {chapter}{\numberline {3}FUNGSI-FUNGSI YANG HARUS DILAKUKAN OLEH PROGRAM}{10}
+\contentsline {chapter}{\numberline {4}BATASAN DAN KARAKTERISTIK KINERJA PROGRAM}{12}
+\contentsline {section}{\numberline {4.1}Batasan Program}{12}
+\contentsline {section}{\numberline {4.2}Karakteristik Kinerja Program}{13}
+\contentsline {chapter}{\numberline {5}KRITERIA PENGUJIAN PROGRAM}{14}
